@@ -1,0 +1,15 @@
+{
+  "name": "node-drone-flyer",
+  "version": "0.0.0",
+  "description": "Quadcopter drone controlling application using my PS3 like gamepad",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "node-gamepad": "git://github.com/marcooliveira/node-gamepad.git",
+    "ar-drone": "^0.3.1"
+  }
+}

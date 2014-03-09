@@ -1,5 +1,7 @@
 # Node.js drone flyer
 
+![Nodecopter](nodecopter.png)
+
 ## Introduction
 
 This is a pet project for creating a controller and monitor for flying a Parrot AR Drone 2.0. It is based on an old PS3 like gamepad controller, and allows me to have lots of fun!
@@ -15,6 +17,7 @@ This is a pet project for creating a controller and monitor for flying a Parrot 
 - **cross**: stop and hover in place.
 - **direccional keys**: flip left, right, ahead and behind respectively.
 - **triangle**: calibrate the magnetometer. Will cause the drone to yaw 360 degrees in place.
+- **square**: recover form emergency mode after the drone has crashed or been flipped over.
 
 ### Monitor
 

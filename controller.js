@@ -9,15 +9,6 @@ var Gamepad = require('node-gamepad'),
 // client.config('general:navdata_demo', 'FALSE');
 // client.on('navdata', console.log);
 
-console.log('Usage hints:')
-console.log('stop(), land(), ')
-
-// create REPL just in case
-client.createRepl();
-
-// TODO: continuously print some main help commands for quick reference in REPL
-
-
 // monkeypatch just to test values
 // [
 //     'left',
@@ -41,7 +32,22 @@ client.createRepl();
 //     client[k] = console.log.bind(console, k);
 // });
 
+var takingOff = false,
+    landing   = false
+;
+
+client.on('landing', function () {
+    landing = true;
+});
+
+
 Gamepad.device(function (err, pad) {
+    if (err) {
+        console.error('Unable to get gamepad:', err);
+
+        return;
+    }
+
     pad.on('leftStickChange', function (data) {
         // adjust values to drone values (0 - 1)
         var left  = Math.abs(Math.min(data.h, 127) - 127) / 127,
@@ -89,7 +95,7 @@ Gamepad.device(function (err, pad) {
     });
 
 
-    // emergency STOP. Stops everything the drone is doing and makes it hover inplace
+    // emergency STOP. Stops everything the drone is doing and makes it hover in place
     pad.on('crossPress', function () {
         client.stop();
     });
@@ -99,18 +105,43 @@ Gamepad.device(function (err, pad) {
         client.calibrate(0);
     });
 
+    // recover from emergency
+    pad.on('squarePress', function () {
+        client.disableEmergency();
+    });
+
     pad.on('startPress', function () {
+        // if already flying, ignore
+        if (takingOff) {
+            return;
+        }
+
+        takingOff = true;
+
         client.takeoff(function (err) {
+            takingOff = false;
             err && console.error('Unable to takeoff:', err);
         });
     });
 
     pad.on('selectPress', function () {
+        // if already landing, ignore
+        if (landing) {
+            return;
+        }
+
         client.land(function (err) {
+            landing = false;
             err && console.error('Unable to land:', err);
         });
     });
-
-
-
 });
+
+
+console.log('Usage hints:');
+console.log('stop(), land()');
+
+// create REPL just in case
+client.createRepl();
+
+// TODO: continuously print some main help commands for quick reference in REPL

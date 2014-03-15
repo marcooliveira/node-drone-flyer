@@ -79,19 +79,19 @@ Gamepad.device(function (err, pad) {
     });
 
     pad.on('upPress', function () {
-        client.animate('flipAhead', 1000);
+        client.animate('flipAhead', 100);
     });
 
     pad.on('downPress', function () {
-        client.animate('flipBehind', 1000);
+        client.animate('flipBehind', 100);
     });
 
     pad.on('leftPress', function () {
-        client.animate('flipLeft', 1000);
+        client.animate('flipLeft', 100);
     });
 
     pad.on('rightPress', function () {
-        client.animate('flipRight', 1000);
+        client.animate('flipRight', 100);
     });
 
 
@@ -139,7 +139,7 @@ Gamepad.device(function (err, pad) {
 
 
 console.log('Usage hints:');
-console.log('stop(), land()');
+console.log('stop(), takeoff(), land()');
 
 // create REPL just in case
 client.createRepl();

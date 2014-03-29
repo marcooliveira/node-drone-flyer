@@ -10,6 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "node-gamepad": "git://github.com/marcooliveira/node-gamepad.git",
-    "ar-drone": "^0.3.1"
+    "ar-drone": "^0.3.1",
+    "ar-drone-png-stream": "^2.0.0",
+    "dronestream": "^1.1.1"
   }
 }

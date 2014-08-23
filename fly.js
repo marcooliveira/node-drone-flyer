@@ -98,21 +98,21 @@ Gamepad.device(function (err, pad) {
         client.animate('flipRight', 100);
     });
 
-    pad.on('l1Press', function () {
-        client.animate('phiM30Deg', 100);
-    });
-
-    pad.on('r1Press', function () {
-        client.animate('phi30Deg', 100);
-    });
-
-    pad.on('l2Press', function () {
-        client.animate('thetaM30Deg', 100);
-    });
-
-    pad.on('r2Press', function () {
-        client.animate('theta30Deg', 100);
-    });
+    // pad.on('l1Press', function () {
+    //     client.animate('phiM30Deg', 100);
+    // });
+    //
+    // pad.on('r1Press', function () {
+    //     client.animate('phi30Deg', 100);
+    // });
+    //
+    // pad.on('l2Press', function () {
+    //     client.animate('thetaM30Deg', 100);
+    // });
+    //
+    // pad.on('r2Press', function () {
+    //     client.animate('theta30Deg', 100);
+    // });
 
 // ['phiM30Deg', 'phi30Deg', 'thetaM30Deg', 'theta30Deg', 'theta20degYaw200deg',
 // 'theta20degYawM200deg', 'turnaround', 'turnaroundGodown', 'yawShake',
@@ -148,24 +148,30 @@ Gamepad.device(function (err, pad) {
         });
     });
 
+    // pad.on('selectPress', function () {
+    //     // if already landing, ignore
+    //     if (landing) {
+    //         return;
+    //     }
+    //
+    //     client.land(function (err) {
+    //         landing = false;
+    //         err && console.error('Unable to land:', err);
+    //     });
+    // });
     pad.on('selectPress', function () {
-        // if already landing, ignore
-        if (landing) {
-            return;
-        }
-
-        client.land(function (err) {
+        client.land(function () {
             landing = false;
-            err && console.error('Unable to land:', err);
+            takingOff = false;
         });
     });
 });
 
 // set up PNG stream
-// pngStream(client, 8000);
+// pngStream(client, 8000); -> NOT WORKING PROPERLY, FFMPEG IS THROWING SOME ERROR
 
 // set up h264 stream
-// h264Server(8000, '0.0.0.0');
+h264Server(8000, '0.0.0.0');
 
 console.log('Usage hints:');
 console.log('stop(), takeoff(), land(), disableEmergency()');
@@ -174,3 +180,5 @@ console.log('stop(), takeoff(), land(), disableEmergency()');
 client.createRepl();
 
 // TODO: continuously print some main help commands for quick reference in REPL
+
+module.exports = client;
